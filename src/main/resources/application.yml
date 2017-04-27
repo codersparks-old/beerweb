@@ -9,6 +9,6 @@ spring:
       enabled: true
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
   thymeleaf:
     mode: LEGACYHTML5
