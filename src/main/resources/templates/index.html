@@ -1,36 +1,89 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!-- Angular Material style sheet -->
-    <link rel="stylesheet" href="/webjars/angular-material/1.1.3/angular-material.min.css" />
+    <link rel="stylesheet" href="/webjars/angular-material/1.1.3/angular-material.min.css">
+    <link rel="stylesheet" href="/app.css">
 </head>
 <body ng-app="BlankApp" ng-cloak>
 
-<div ng-controller="PumpDataController as pdc">
-    <!-- Pump Data: {{ pumpData }} -->
+<md-toolbar>
+    <div class="md-toolbar-tools">Beerweb - View Results Page</div>
+</md-toolbar>
 
-    <table ng-if="! pdc.checkForEmptyData()" border="1">
-        <thead>
-            <tr>
-                <th>Pump</th><th>Beer RFID</th><th>Running Total</th><th>Number of Ratings</th><th>Average Rating</th><th>Last Updated</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="(pump, beer) in pumpData">
-                <td>{{pump}}</td>
-                <td>{{beer.rfid}}</td>
-                <td>{{beer.runningTotalRating}}</td>
-                <td>{{beer.numRatings}}</td>
-                <td ng-if="beer.numRatings != 0">{{beer.runningTotalRating / beer.numRatings | number:2}}</td>
-                <td ng-if="beer.numRatings == 0">0</td>
-                <td>{{beer.lastVote}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <div ng-if="pdc.checkForEmptyData()">
-        <h3>No pumps have been loaded</h3>
-    </div>
+<div ng-controller="PumpDataController as pdc" flex ng-cloak>
+    <md-content>
+        <md-card ng-if="pdc.checkForEmptyData() " flex>
+            <md-card-content>
+                <md-toolbar class="md-toolbar-tools md-warn"><span class="md-headline">No pumps loaded with beers</span> </md-toolbar>
+            </md-card-content>
+        </md-card>
+        <md-grid-list ng-if="! pdc.checkForEmptyData()" md-cols="5" md-cols-xs="1" md-cols-sm="2" md-row-height="4:3" md-gutter="1em">
+
+            <md-grid-tile  ng-repeat="(pump, beer) in pumpData">
+                <!--<md-grid-tile-header class="md-accent">-->
+                <!--<span class="md-headline">{{ pump }}</span>-->
+                <!--</md-grid-tile-header>-->
+
+                <table flex>
+                        <thead>
+                        <tr>
+                            <td colspan="2"><md-toolbar class="md-toolbar-tools md-accent">{{ pump }}</md-toolbar></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>Running Ratings Total:</th>
+                            <td>{{beer.runningTotalRating}}</td>
+                        </tr>
+                        <tr>
+                            <th>Number of ratings:</th>
+                            <td>{{beer.numRatings}}</td>
+                        </tr>
+                        <tr>
+                            <th>Average Rating:</th>
+                            <td ng-if="beer.numRatings != 0">{{beer.runningTotalRating / beer.numRatings | number:2}}
+                            </td>
+                            <td ng-if="beer.numRatings == 0">0</td>
+                        </tr>
+                        <tr>
+                            <th>Last Vote:</th>
+                            <td>{{beer.lastVote}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+            </md-grid-tile>
+        </md-grid-list>
+    </md-content>
+
+    <!--<table ng-if="! pdc.checkForEmptyData()" border="1">-->
+    <!--<thead>-->
+    <!--<tr>-->
+    <!--<th>Pump</th>-->
+    <!--<th>Beer RFID</th>-->
+    <!--<th>Running Total</th>-->
+    <!--<th>Number of Ratings</th>-->
+    <!--<th>Average Rating</th>-->
+    <!--<th>Last Updated</th>-->
+    <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+    <!--<tr ng-repeat="(pump, beer) in pumpData">-->
+    <!--<td>{{pump}}</td>-->
+    <!--<td>{{beer.rfid}}</td>-->
+    <!--<td>{{beer.runningTotalRating}}</td>-->
+    <!--<td>{{beer.numRatings}}</td>-->
+    <!--<td ng-if="beer.numRatings != 0">{{beer.runningTotalRating / beer.numRatings | number:2}}</td>-->
+    <!--<td ng-if="beer.numRatings == 0">0</td>-->
+    <!--<td>{{beer.lastVote}}</td>-->
+    <!--</tr>-->
+    <!--</tbody>-->
+    <!--</table>-->
+    <!--<div ng-if="pdc.checkForEmptyData()">-->
+    <!--<h3>No pumps have been loaded</h3>-->
+    <!--</div>-->
 </div>
 
 <!-- Angular Material requires Angular.js Libraries -->
@@ -48,13 +101,6 @@
 
 <script src="/app.js"></script>
 
-<!-- Your application bootstrap  -->
-<script type="text/javascript">
-    /**
-     * You must include the dependency on 'ngMaterial'
-     */
-
-</script>
 
 </body>
 </html>

@@ -15,6 +15,11 @@ public class BeerWebUIController {
         return "index";
     }
 
+    @RequestMapping(path="/manual.html")
+    public String manual() {
+        return "manual";
+    }
+
     @RequestMapping(path="/simple")
     public String simple() {
         return "simple";

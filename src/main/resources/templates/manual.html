@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="/webjars/angular-material/1.1.3/angular-material.min.css"/>
+</head>
+<body ng-app="BlankApp" ng-cloak>
+
+<div>
+    <md-toolbar>
+        <div class="md-toolbar-tools">Beerweb - Manual Input Page</div>
+    </md-toolbar>
+
+    <md-card flex>
+        <md-card-content>
+            <p>Please enter a pumpId, rfID and a Rating in the boxes below and click submit to register rating</p>
+            <p>hint: To load a different beer into a pump, use rating=0</p>
+            <p>hint: Open <a href="/ui/index.html">the view page</a> in another window and display both side by side to notice effect of updating a rating</p>
+        </md-card-content>
+    </md-card>
+
+    <div ng-controller="ManualController" layout="column" ng-cloak class="md-inline-form">
+        <md-card>
+            <md-card-content layout-padding>
+                <div>
+                    <form name="beerForm" ng-submit="processBeerForm()">
+                        <div layout-gt-xs="row">
+                            <md-input-container class="md-block" flex-gt-xs>
+                                <label>PumpID</label>
+                                <input name="pumpID" ng-model="pumpData.pumpID" required/>
+                                <div ng-messages="beerForm.pumpID.$error">
+                                    <div ng-message="required">This is required.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs>
+                                <label>RFID</label>
+                                <input name="rfID" ng-model="pumpData.rfID" required/>
+                                <div ng-messages="beerForm.rfID.$error">
+                                    <div ng-message="required">This is required.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs>
+                                <label>Rating</label>
+                                <input name="rating" ng-model="pumpData.rating" required/>
+                                <div ng-messages="beerForm.rating.$error">
+                                    <div ng-message="required">This is required.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div>
+                            <div layout="row" layout-align="end center">
+                                <md-button type="submit" class="md-raised md-primary">Submit</md-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </md-card-content>
+        </md-card>
+        <md-card>
+            <md-card-content>
+                <md-toolbar class="md-toolbar-tools md-warn"><span class="md-headline">Here be dragons - Delete <b>all</b> data:</span></md-toolbar>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button class="md-raised md-warn" ng-click="showConfirm($event)">Delete</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+
+
+
+</div>
+
+<!-- Angular Material requires Angular.js Libraries -->
+<script src="/webjars/angularjs/1.6.2/angular.min.js"></script>
+<script src="/webjars/angularjs/1.6.2/angular-animate.min.js"></script>
+<script src="/webjars/angularjs/1.6.2/angular-aria.min.js"></script>
+<script src="/webjars/angularjs/1.6.2/angular-messages.min.js"></script>
+<script src="/webjars/sockjs-client/1.1.1/sockjs.min.js"></script>
+
+
+<script src="/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
+
+<!-- Angular Material Library -->
+<script src="/webjars/angular-material/1.1.3/angular-material.min.js"></script>
+
+<script src="/app.js"></script>
+
+<!-- Your application bootstrap  -->
+<script type="text/javascript">
+    /**
+     * You must include the dependency on 'ngMaterial'
+     */
+
+</script>
+
+</body>
+</html>

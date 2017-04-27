@@ -1,4 +1,15 @@
-var app = angular.module('BlankApp', ['ngMaterial']);
+var app = angular.module('BlankApp', ['ngMaterial', 'ngMessages']);
+
+app.config(function($mdThemingProvider) {
+        $mdThemingProvider.theme('default')
+            .primaryPalette('blue-grey', {
+                'default': '900',
+                'hue-1': '700',
+                'hue-2': '500',
+                'hue-3': '300'
+            })
+            .accentPalette('deep-orange');
+    });
 
 app.controller("PumpDataController", ['$scope', function ($scope) {
 
@@ -47,3 +58,105 @@ app.controller("PumpDataController", ['$scope', function ($scope) {
     });
 
 }]);
+
+app.controller("ManualController", function($scope, $http, $mdToast, $mdDialog) {
+
+    $scope.processBeerForm = function() {
+
+        var urlString = "/?pump=" + $scope.pumpData.pumpID + "&rfid=" + $scope.pumpData.rfID + "&rating=" + $scope.pumpData.rating;
+
+        $http({
+            method: "POST",
+            url: urlString,
+            data: ""
+        })
+            .then(function successCallback(data) {
+                console.log("Process Beer form submitted, and returned");
+                console.log(data);
+                $scope.showSimpleToast("Rating submitted successfully");
+
+            }, function errorCallback(respone) {
+                console.error("Error submitting beer form");
+                console.error(response);
+                $scope.showSimpleToast("Error submitting rating");
+            });
+    };
+
+    var last = {
+        bottom: true,
+        top: false,
+        left: false,
+        right: true
+    };
+
+    $scope.toastPosition = angular.extend({},last);
+
+    $scope.getToastPosition = function() {
+        sanitizePosition();
+
+        return Object.keys($scope.toastPosition)
+            .filter(function(pos) { return $scope.toastPosition[pos]; })
+            .join(' ');
+    };
+
+    function sanitizePosition() {
+        var current = $scope.toastPosition;
+
+        if ( current.bottom && last.top ) current.top = false;
+        if ( current.top && last.bottom ) current.bottom = false;
+        if ( current.right && last.left ) current.left = false;
+        if ( current.left && last.right ) current.right = false;
+
+        last = angular.extend({},current);
+    }
+
+    $scope.showSimpleToast = function(text) {
+        var pinTo = $scope.getToastPosition();
+
+        $mdToast.show(
+            $mdToast.simple()
+                .textContent(text)
+                .position(pinTo )
+                .hideDelay(2000)
+        );
+    };
+
+    $scope.showConfirm = function(ev) {
+        // Appending dialog to document.body to cover sidenav in docs app
+        var confirm = $mdDialog.confirm()
+            .title('Are you sure?')
+            .textContent('Do you really want to delete all the data in the db')
+            .ariaLabel('Delete Data')
+            .targetEvent(ev)
+            .ok('Yes, Please delete!')
+            .cancel('Nope, please do not delete');
+
+        $mdDialog.show(confirm).then(function() {
+            $http({
+                method: "DELETE",
+                url: "/danger/deleteall",
+                data: ""
+            }).then(function(response) {
+                console.log("Deleted data, response:");
+                console.log(response);
+                $scope.showSimpleToast("All data has been deleted");
+            }, function(response) {
+                console.error("Error received when attempting to delete data, resonse:");
+                console.error(response);
+            })
+        }, function() {
+            console.log("I have not delete the data");
+        });
+    };
+
+
+    angular.element(document).ready(function() {
+        console.log("Loading Manual Controller");
+
+        $scope.pumpData = {};
+        $scope.pumpData.pumpID = "pump1";
+        $scope.pumpData.rfID = "rfid1";
+        $scope.pumpData.rating = 0;
+        $scope.$apply();
+    });
+});
