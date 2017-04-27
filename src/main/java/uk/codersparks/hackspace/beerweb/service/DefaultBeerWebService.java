@@ -11,6 +11,7 @@ import uk.codersparks.hackspace.beerweb.repository.BeerRepository;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -36,7 +37,7 @@ public class DefaultBeerWebService implements BeerWebService {
     @Override
     public void registerBeerRating(String pumpId, String rfid, int rating) throws Exception {
 
-        LocalDateTime thisVoteDate = LocalDateTime.now(TimeZone.getDefault().toZoneId());
+        LocalDateTime thisVoteDate = LocalDateTime.now(ZoneId.of("Europe/London"));
         String thisVoteDateString = DATE_FORMATTER.format(thisVoteDate);
 
         if(rating == 0) {
