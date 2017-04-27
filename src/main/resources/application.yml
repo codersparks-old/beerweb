@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:/tmp/beerwebdb;DB_CLOSE_ON_EXIT=FALSE
+    username: beerweb
+    password: beerweb
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  thymeleaf:
+    mode: LEGACYHTML5

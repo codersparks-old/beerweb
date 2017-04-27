@@ -1,0 +1,4 @@
+1. Connect up DB and test input output etc
+2. Create noddy gui to test api
+3. Create gui to display current beers with rfid and rating (maybe just pumpID)
+    a) Verify the ifNotNull command works as expected
