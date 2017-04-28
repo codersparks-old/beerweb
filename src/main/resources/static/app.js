@@ -11,9 +11,20 @@ app.config(function($mdThemingProvider) {
             .accentPalette('deep-orange');
     });
 
-app.controller("PumpDataController", ['$scope', function ($scope) {
+app.controller("PumpDataController", function ($scope, $location) {
 
     $scope.pumpData = { };
+
+    // We have to check for openshift in the hostname and modify accordingly
+
+    var host = $location.host();
+
+    var sockjsURL = "/beerweb-websocket";
+
+    if(host.toLowerCase().indexOf("rhcloud.com") > 0) {
+        console.log("Detected running on openshift setting url accordingly");
+        sockjsURL = "ws://beerweb-codersparks.rhcloud.com:8000" + sockjsURL;
+    }
 
     var stompClient = null;
 
@@ -25,7 +36,7 @@ app.controller("PumpDataController", ['$scope', function ($scope) {
     }
 
     var connect = function () {
-        var socket = new SockJS('/beerweb-websocket');
+        var socket = new SockJS(sockjsURL);
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, function (frame) {
@@ -57,7 +68,7 @@ app.controller("PumpDataController", ['$scope', function ($scope) {
         }, 500);
     });
 
-}]);
+});
 
 app.controller("ManualController", function($scope, $http, $mdToast, $mdDialog) {
 
