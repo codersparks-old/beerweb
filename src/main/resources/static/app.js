@@ -23,7 +23,7 @@ app.controller("PumpDataController", function ($scope, $location) {
 
     if(host.toLowerCase().indexOf("rhcloud.com") > 0) {
         console.log("Detected running on openshift setting url accordingly");
-        sockjsURL = "ws://beerweb-codersparks.rhcloud.com:8000" + sockjsURL;
+        sockjsURL = "http://beerweb-codersparks.rhcloud.com:8000" + sockjsURL;
     }
 
     var stompClient = null;
