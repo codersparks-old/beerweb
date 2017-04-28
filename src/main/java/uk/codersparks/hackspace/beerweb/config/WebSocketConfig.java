@@ -21,6 +21,6 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
-        stompEndpointRegistry.addEndpoint("/beerweb-websocket").withSockJS();
+        stompEndpointRegistry.addEndpoint("/beerweb-websocket").setAllowedOrigins("localhost","beerweb-codersparks.rhcloud.com").withSockJS();
     }
 }
