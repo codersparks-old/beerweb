@@ -16,15 +16,16 @@
     <md-content>
         <md-card ng-if="pdc.checkForEmptyData() " flex>
             <md-card-content>
-                <md-toolbar class="md-toolbar-tools md-warn"><span class="md-headline">No pumps loaded with beers</span> </md-toolbar>
+                <md-toolbar class="md-toolbar-tools md-warn">
+                    <p ng-if="!initialisationMessage"><span class="md-headline">No pumps loaded with beers</span></p>
+                    <p ng-if="initialisationMessage"><span class="md-headline">Please wait for initialisation</span></p>
+                </md-toolbar>
             </md-card-content>
         </md-card>
         <md-grid-list ng-if="! pdc.checkForEmptyData()" md-cols="5" md-cols-xs="1" md-cols-sm="2" md-row-height="4:3" md-gutter="1em">
 
             <md-grid-tile  ng-repeat="(pump, beer) in pumpData">
-                <!--<md-grid-tile-header class="md-accent">-->
-                <!--<span class="md-headline">{{ pump }}</span>-->
-                <!--</md-grid-tile-header>-->
+
 
                 <table flex>
                         <thead>
@@ -58,32 +59,6 @@
         </md-grid-list>
     </md-content>
 
-    <!--<table ng-if="! pdc.checkForEmptyData()" border="1">-->
-    <!--<thead>-->
-    <!--<tr>-->
-    <!--<th>Pump</th>-->
-    <!--<th>Beer RFID</th>-->
-    <!--<th>Running Total</th>-->
-    <!--<th>Number of Ratings</th>-->
-    <!--<th>Average Rating</th>-->
-    <!--<th>Last Updated</th>-->
-    <!--</tr>-->
-    <!--</thead>-->
-    <!--<tbody>-->
-    <!--<tr ng-repeat="(pump, beer) in pumpData">-->
-    <!--<td>{{pump}}</td>-->
-    <!--<td>{{beer.rfid}}</td>-->
-    <!--<td>{{beer.runningTotalRating}}</td>-->
-    <!--<td>{{beer.numRatings}}</td>-->
-    <!--<td ng-if="beer.numRatings != 0">{{beer.runningTotalRating / beer.numRatings | number:2}}</td>-->
-    <!--<td ng-if="beer.numRatings == 0">0</td>-->
-    <!--<td>{{beer.lastVote}}</td>-->
-    <!--</tr>-->
-    <!--</tbody>-->
-    <!--</table>-->
-    <!--<div ng-if="pdc.checkForEmptyData()">-->
-    <!--<h3>No pumps have been loaded</h3>-->
-    <!--</div>-->
 </div>
 
 <!-- Angular Material requires Angular.js Libraries -->

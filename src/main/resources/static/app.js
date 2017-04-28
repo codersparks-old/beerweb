@@ -15,6 +15,8 @@ app.controller("PumpDataController", function ($scope, $location) {
 
     $scope.pumpData = { };
 
+    $scope.initialisationMessage = true;
+
     // We have to check for openshift in the hostname and modify accordingly
 
     var host = $location.host();
@@ -42,6 +44,7 @@ app.controller("PumpDataController", function ($scope, $location) {
         stompClient.connect({}, function (frame) {
             console.log("Connected: " + frame);
             stompClient.subscribe('/topic/pumpdata', function (pumpDataMessage) {
+                $scope.initialisationMessage = false;
                updatePumpData(JSON.parse(pumpDataMessage.body));
             });
         });
@@ -65,7 +68,7 @@ app.controller("PumpDataController", function ($scope, $location) {
         // Force the spring controller to send the current data
         setTimeout(function() {
             console.log("Sending initialisation message");stompClient.send("/app/pumpdata", {}, "");
-        }, 500);
+        }, 2500);
     });
 
 });
