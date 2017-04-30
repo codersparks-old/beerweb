@@ -1,7 +1,7 @@
-package uk.codersparks.hackspace.beerweb.repository;
+package uk.codersparks.hackspace.beerweb.v1.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import uk.codersparks.hackspace.beerweb.model.Beer;
+import uk.codersparks.hackspace.beerweb.v1.model.Beer;
 
 import java.util.Collection;
 

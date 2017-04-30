@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="/webjars/angular-material/1.1.3/angular-material.min.css">
+    <link rel="stylesheet" href="/app.css">
+</head>
+<body ng-app="BeerwebV2" ng-cloak>
+
+<md-toolbar>
+    <div class="md-toolbar-tools">Beerweb - View Results Page</div>
+</md-toolbar>
+
+<div ng-controller="PumpSummaryController as psc" flex ng-cloak>
+    <md-content>
+        <md-card ng-if="psc.checkForEmptyData() " flex>
+            <md-card-content>
+                <md-toolbar class="md-toolbar-tools md-hue-3">
+                    <p ng-if="!initialisationMessage"><span class="md-headline">No pumps have any summary</span></p>
+                    <p ng-if="initialisationMessage"><span class="md-headline">Please wait for initialisation</span></p>
+                </md-toolbar>
+            </md-card-content>
+        </md-card>
+        <md-grid-list ng-if="! psc.checkForEmptyData()" md-cols="5" md-cols-xs="1" md-cols-sm="2" md-row-height="4:3" md-gutter="1em">
+
+            <md-grid-tile  ng-repeat="(pump, pumpSummary) in pumpSummaryMap">
+
+
+                <table flex>
+                        <thead>
+                        <tr>
+                            <td colspan="2"><md-toolbar class="md-toolbar-tools md-hue-3">{{ pump }}</md-toolbar></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>Running Ratings Total:</th>
+                            <td>{{beer.runningTotalRating}}</td>
+                        </tr>
+                        <tr>
+                            <th>Number of ratings:</th>
+                            <td>{{beer.numRatings}}</td>
+                        </tr>
+                        <tr>
+                            <th>Average Rating:</th>
+                            <td ng-if="beer.numRatings != 0">{{beer.runningTotalRating / beer.numRatings | number:2}}
+                            </td>
+                            <td ng-if="beer.numRatings == 0">0</td>
+                        </tr>
+                        <tr>
+                            <th>Last Vote:</th>
+                            <td>{{beer.lastVote}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+            </md-grid-tile>
+        </md-grid-list>
+    </md-content>
+
+</div>
+
+<!-- Angular Material requires Angular.js Libraries -->
+<script src="/webjars/angularjs/1.6.2/angular.min.js"></script>
+<script src="/webjars/angularjs/1.6.2/angular-animate.min.js"></script>
+<script src="/webjars/angularjs/1.6.2/angular-aria.min.js"></script>
+<script src="/webjars/angularjs/1.6.2/angular-messages.min.js"></script>
+<script src="/webjars/sockjs-client/1.1.1/sockjs.min.js"></script>
+
+
+<script src="/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
+
+<!-- Angular Material Library -->
+<script src="/webjars/angular-material/1.1.3/angular-material.min.js"></script>
+
+<script src="/v2/app.js"></script>
+
+
+</body>
+</html>

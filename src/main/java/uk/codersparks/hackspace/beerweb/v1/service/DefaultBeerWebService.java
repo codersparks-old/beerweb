@@ -1,18 +1,15 @@
-package uk.codersparks.hackspace.beerweb.service;
+package uk.codersparks.hackspace.beerweb.v1.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import uk.codersparks.hackspace.beerweb.exception.BeerWebException;
-import uk.codersparks.hackspace.beerweb.interfaces.BeerWebService;
-import uk.codersparks.hackspace.beerweb.model.Beer;
-import uk.codersparks.hackspace.beerweb.repository.BeerRepository;
+import uk.codersparks.hackspace.beerweb.v1.exception.BeerWebException;
+import uk.codersparks.hackspace.beerweb.v1.interfaces.BeerWebService;
+import uk.codersparks.hackspace.beerweb.v1.model.Beer;
+import uk.codersparks.hackspace.beerweb.v1.repository.BeerRepository;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;

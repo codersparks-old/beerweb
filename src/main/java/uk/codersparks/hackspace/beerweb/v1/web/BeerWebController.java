@@ -1,4 +1,4 @@
-package uk.codersparks.hackspace.beerweb.web;
+package uk.codersparks.hackspace.beerweb.v1.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,8 +7,8 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
-import uk.codersparks.hackspace.beerweb.interfaces.BeerWebService;
-import uk.codersparks.hackspace.beerweb.model.Beer;
+import uk.codersparks.hackspace.beerweb.v1.interfaces.BeerWebService;
+import uk.codersparks.hackspace.beerweb.v1.model.Beer;
 
 import java.util.Map;
 

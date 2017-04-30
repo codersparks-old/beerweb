@@ -1,4 +1,4 @@
-package uk.codersparks.hackspace.beerweb.exception;
+package uk.codersparks.hackspace.beerweb.v1.exception;
 
 /**
  * TODO: Add Javadoc

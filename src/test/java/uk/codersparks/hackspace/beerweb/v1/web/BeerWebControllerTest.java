@@ -1,4 +1,4 @@
-package uk.codersparks.hackspace.beerweb.web;
+package uk.codersparks.hackspace.beerweb.v1.web;
 
 import org.junit.After;
 import org.junit.Before;
@@ -10,8 +10,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import uk.codersparks.hackspace.beerweb.interfaces.BeerWebService;
-import uk.codersparks.hackspace.beerweb.model.Beer;
+import uk.codersparks.hackspace.beerweb.v1.interfaces.BeerWebService;
 
 import java.util.Map;
 

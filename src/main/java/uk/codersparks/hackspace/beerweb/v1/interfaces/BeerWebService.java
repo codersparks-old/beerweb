@@ -1,7 +1,6 @@
-package uk.codersparks.hackspace.beerweb.interfaces;
+package uk.codersparks.hackspace.beerweb.v1.interfaces;
 
-import uk.codersparks.hackspace.beerweb.exception.BeerWebException;
-import uk.codersparks.hackspace.beerweb.model.Beer;
+import uk.codersparks.hackspace.beerweb.v1.model.Beer;
 
 import java.util.Map;
 

@@ -479,6 +479,7 @@
                     <location name="/" handler="welcome-content"/>
                     <filter-ref name="server-header"/>
                     <filter-ref name="x-powered-by-header"/>
+                    <access-log use-server-log="true" pattern="%h %t &quot;%r&quot; %s &quot;%{i,User-Agent}&quot;" />
                 </host>
             </server>
             <servlet-container name="default">
