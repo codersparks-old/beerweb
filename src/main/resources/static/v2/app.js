@@ -1,5 +1,9 @@
 var app = angular.module('BeerwebV2', ['ngMaterial', 'ngMessages']);
 
+app.factory('moment', function($window) {
+    return $window.moment;
+})
+
 app.config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('blue-grey', {
@@ -11,9 +15,9 @@ app.config(function ($mdThemingProvider) {
         .accentPalette('teal');
 });
 
-app.controller("PumpSummaryController", function ($scope, $location) {
+app.controller("PumpSummaryController", function ($scope, $location, moment) {
 
-    $scope.pumpSummary = {};
+    $scope.pumpSummaryMap = {};
 
     $scope.initialisationMessage = true;
 
@@ -44,7 +48,7 @@ app.controller("PumpSummaryController", function ($scope, $location) {
     };
 
     this.checkForEmptyData = function () {
-        emptyData = angular.equals({}, $scope.pumpSummary);
+        emptyData = angular.equals({}, $scope.pumpSummaryMap);
         console.log("Result of check for empty summary: " + emptyData);
         return emptyData;
     };
@@ -52,9 +56,17 @@ app.controller("PumpSummaryController", function ($scope, $location) {
     var updatePumpSummary = function(data) {
         console.log("updatePumpSummary called with data: ");
         console.log(data);
-        $scope.pumpSummary = data;
+        $scope.pumpSummaryMap = data;
         $scope.$apply();
-    }
+    };
+
+    this.formatDate = function(date) {
+      var _momentDate = moment(date);
+      console.log("Date:");
+      console.log(_momentDate);
+
+      return _momentDate.format("HH:mm:ss - DD/MM/Y");
+    };
 
     angular.element(document).ready(function() {
         console.log("Loading from v2/app.js");

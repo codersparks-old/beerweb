@@ -48,7 +48,8 @@ public class BeerwebRestController {
 
         Pump pump = beerwebService.createNewPump(pumpName);
 
-        template.convertAndSend("/topic/pumpsummary","");
+        Map<String, PumpSummary> pumpSummaryMap = this.handleSocketMessage();
+        template.convertAndSend("/topic/pumpsummary",pumpSummaryMap);
 
         return ResponseEntity.ok(pump);
     }
@@ -67,7 +68,8 @@ public class BeerwebRestController {
 
         beerwebService.deletePump(pumpName);
 
-        template.convertAndSend("/topic/pumpsummary","");
+        Map<String, PumpSummary> pumpSummaryMap = this.handleSocketMessage();
+        template.convertAndSend("/topic/pumpsummary",pumpSummaryMap);
 
         return ResponseEntity.noContent().build();
     }
@@ -79,8 +81,6 @@ public class BeerwebRestController {
     public ResponseEntity<List<Pump>> getLoadedPumps() {
 
         List<Pump> pumpList = beerwebService.getAllPumps().stream().filter(pump -> pump.getAssignedRfid() != null).collect(Collectors.toList());
-
-        template.convertAndSend("/topic/pumpsummary","");
 
         return ResponseEntity.ok(pumpList);
     }
@@ -100,7 +100,8 @@ public class BeerwebRestController {
 
         Pump pump = beerwebService.loadBeerToPump(beerRfid, pumpName);
 
-        template.convertAndSend("/topic/pumpsummary","");
+        Map<String, PumpSummary> pumpSummaryMap = this.handleSocketMessage();
+        template.convertAndSend("/topic/pumpsummary",pumpSummaryMap);
 
         return ResponseEntity.ok(pump);
     }
@@ -114,7 +115,8 @@ public class BeerwebRestController {
 
         Rating rating = beerwebService.registerRating(pumpName, score);
 
-        template.convertAndSend("/topic/pumpsummary","");
+        Map<String, PumpSummary> pumpSummaryMap = this.handleSocketMessage();
+        template.convertAndSend("/topic/pumpsummary",pumpSummaryMap);
 
         return ResponseEntity.ok(rating);
     }
@@ -144,8 +146,6 @@ public class BeerwebRestController {
 
                     Iterable<Rating> ratings = beerwebService.getRatingsByBeer(pump.getAssignedRfid());
 
-                    List<Rating> last10Ratings = new ArrayList<>();
-
                     int numRatings = 0;
                     int runningTotal = 0;
 
@@ -155,14 +155,18 @@ public class BeerwebRestController {
                         numRatings += 1;
                         runningTotal += rating.getRating();
 
-                        if(last10Ratings.size() < 10) {
-                            last10Ratings.add(rating);
-                        }
+                        // Would normally do this in a stream but we are looping over each item already
+
+                        pumpSummary.getRatings().add(rating);
                     }
+
+
 
                     pumpSummary.setNumRatings(numRatings);
                     pumpSummary.setRunningTotal(runningTotal);
-                    pumpSummary.setLast10Ratings(last10Ratings);
+                    // If the numRatings is 0 then average is zero otherwise calculate
+                    pumpSummary.setAverage(numRatings == 0 ? 0 : (float)runningTotal/numRatings);
+
 
                     return pumpSummary;
 
@@ -179,9 +183,10 @@ public class BeerwebRestController {
 
         private String pumpName;
         private String loadedBeerRfid;
-        private int runningTotal;
-        private int numRatings;
-        private List<Rating> last10Ratings;
+        private int runningTotal = 0;
+        private int numRatings = 0;
+        private float average = 0;
+        private final List<Rating> ratings = new ArrayList<>();
 
 
 

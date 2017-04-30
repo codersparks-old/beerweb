@@ -13,7 +13,7 @@
 </md-toolbar>
 
 <div ng-controller="PumpSummaryController as psc" flex ng-cloak>
-    <md-content>
+    <md-content layout-margin="5px">
         <md-card ng-if="psc.checkForEmptyData() " flex>
             <md-card-content>
                 <md-toolbar class="md-toolbar-tools md-hue-3">
@@ -22,9 +22,9 @@
                 </md-toolbar>
             </md-card-content>
         </md-card>
-        <md-grid-list ng-if="! psc.checkForEmptyData()" md-cols="5" md-cols-xs="1" md-cols-sm="2" md-row-height="4:3" md-gutter="1em">
+        <md-grid-list ng-if="! psc.checkForEmptyData()" md-cols="4" md-cols-xs="1" md-cols-sm="2" md-row-height="16:9" md-gutter="1em" flex>
 
-            <md-grid-tile  ng-repeat="(pump, pumpSummary) in pumpSummaryMap">
+            <md-grid-tile  ng-repeat="(pump, pumpSummary) in pumpSummaryMap" flex>
 
 
                 <table flex>
@@ -36,21 +36,20 @@
                         <tbody>
                         <tr>
                             <th>Running Ratings Total:</th>
-                            <td>{{beer.runningTotalRating}}</td>
+                            <td>{{pumpSummary.runningTotal}}</td>
                         </tr>
                         <tr>
                             <th>Number of ratings:</th>
-                            <td>{{beer.numRatings}}</td>
+                            <td>{{pumpSummary.numRatings}}</td>
                         </tr>
                         <tr>
                             <th>Average Rating:</th>
-                            <td ng-if="beer.numRatings != 0">{{beer.runningTotalRating / beer.numRatings | number:2}}
-                            </td>
-                            <td ng-if="beer.numRatings == 0">0</td>
+                            <td>{{pumpSummary.average | number : 2}}</td>
                         </tr>
                         <tr>
                             <th>Last Vote:</th>
-                            <td>{{beer.lastVote}}</td>
+                            <td ng-if="pumpSummary.numRatings > 0">{{ psc.formatDate(pumpSummary.ratings[0].timestamp) }}</td>
+                            <td ng-if="pumpSummary.numRatings == 0"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -67,6 +66,8 @@
 <script src="/webjars/angularjs/1.6.2/angular-aria.min.js"></script>
 <script src="/webjars/angularjs/1.6.2/angular-messages.min.js"></script>
 <script src="/webjars/sockjs-client/1.1.1/sockjs.min.js"></script>
+<script src="/webjars/momentjs/2.18.1/moment.js"></script>
+
 
 
 <script src="/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
