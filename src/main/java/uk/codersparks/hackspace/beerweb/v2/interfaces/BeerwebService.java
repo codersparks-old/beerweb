@@ -19,6 +19,8 @@ public interface BeerwebService {
 
     List<Pump> getAllPumps();
 
+    void deleteAllData();
+
     Pump loadBeerToPump(String beerRfid, String pumpName) throws BeerwebException;
 
     Rating registerRating(String pumpName, int rating) throws BeerwebException;

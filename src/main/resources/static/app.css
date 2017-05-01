@@ -15,3 +15,50 @@ th {
 
 }
 
+.chart {
+    background: lightgray;
+    border: 1px solid black;
+    min-width: 200px;
+    min-height: 100px;
+}
+
+.ct-bar {
+    stroke-width: 60px;
+}
+
+.ct-chart .ct-bar:nth-of-type(9n+1) {
+    stroke: #D32F2F
+}
+
+.ct-chart .ct-bar:nth-of-type(9n+2) {
+    stroke: #7B1FA2
+}
+
+.ct-chart .ct-bar:nth-of-type(9n+3) {
+    stroke: #303F9F
+}
+
+.ct-chart .ct-bar:nth-of-type(9n+4) {
+    stroke: #0288D1
+}
+
+.ct-chart .ct-bar:nth-of-type(9n+5) {
+    stroke: #00796B
+}
+
+.ct-chart .ct-bar:nth-of-type(9n+6) {
+    stroke: #689F38
+}
+
+.ct-chart .ct-bar:nth-of-type(9n+7) {
+    stroke: #FBC02D
+}
+
+.ct-chart .ct-bar:nth-of-type(9n+8) {
+    stroke: #F57C00
+}
+
+.ct-chart .ct-bar:nth-of-type(9n+9) {
+    stroke: #455A64
+}
+

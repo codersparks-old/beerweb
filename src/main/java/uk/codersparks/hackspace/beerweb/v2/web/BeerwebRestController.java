@@ -121,6 +121,25 @@ public class BeerwebRestController {
         return ResponseEntity.ok(rating);
     }
 
+    @RequestMapping(
+            path="/",
+            method = RequestMethod.DELETE
+    )
+    public ResponseEntity<Void> deleteAllData() {
+
+        logger.info("Deleting all data...");
+
+        beerwebService.deleteAllData();
+
+        logger.info("...done");
+
+        Map<String, PumpSummary> pumpSummaryMap = this.handleSocketMessage();
+        template.convertAndSend("/topic/pumpsummary",pumpSummaryMap);
+
+        return ResponseEntity.noContent().build();
+    }
+
+
     @GetMapping(
             path = "/ratings",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.TEXT_XML_VALUE}

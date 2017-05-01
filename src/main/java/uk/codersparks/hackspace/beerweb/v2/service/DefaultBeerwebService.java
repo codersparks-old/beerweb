@@ -82,6 +82,15 @@ public class DefaultBeerwebService implements BeerwebService {
         return pumpList;
     }
 
+
+    @Override
+    public void deleteAllData() {
+
+        ratingRepository.deleteAll();
+        pumpRepository.deleteAll();
+
+    }
+
     @Override
     public Pump loadBeerToPump(String beerRfid, String pumpName) throws BeerwebException{
 
