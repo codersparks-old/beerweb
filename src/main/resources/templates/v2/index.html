@@ -23,7 +23,7 @@
                 </md-toolbar>
             </md-card-content>
         </md-card>
-        <div layout="column">
+        <div layout="column" ng-if="! psc.checkForEmptyData()">
             <div layout="row">
                 <div flex="20" hide-sm></div>
             <div id="aveChart" class="ct-chart ct-double-octave" flex></div>
