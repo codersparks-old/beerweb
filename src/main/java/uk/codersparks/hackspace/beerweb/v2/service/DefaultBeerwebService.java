@@ -70,8 +70,16 @@ public class DefaultBeerwebService implements BeerwebService {
         }
 
         this.deletePump(pump);
+    }
+
+    @Override
+    public void deleteAllData() {
+
+        ratingRepository.deleteAll();
+        pumpRepository.deleteAll();
 
     }
+
 
     @Override
     public List<Pump> getAllPumps() {
@@ -80,15 +88,6 @@ public class DefaultBeerwebService implements BeerwebService {
         List<Pump> pumpList = StreamSupport.stream(pumpIterable.spliterator(), true).collect(Collectors.toList());
 
         return pumpList;
-    }
-
-
-    @Override
-    public void deleteAllData() {
-
-        ratingRepository.deleteAll();
-        pumpRepository.deleteAll();
-
     }
 
     @Override

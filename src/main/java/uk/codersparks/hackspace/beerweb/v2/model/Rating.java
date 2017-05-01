@@ -1,6 +1,7 @@
 package uk.codersparks.hackspace.beerweb.v2.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,6 +16,16 @@ import java.time.LocalDateTime;
         @Index(name="RATING_TIME_IDX", columnList = "timestamp")
 })
 public class Rating {
+
+    public Rating() {
+
+    }
+
+    public Rating(String rfid, int rating, LocalDateTime timestamp) {
+        this.rfid = rfid;
+        this.rating = rating;
+        this.timestamp = timestamp;
+    }
 
     @Id
     @GeneratedValue
