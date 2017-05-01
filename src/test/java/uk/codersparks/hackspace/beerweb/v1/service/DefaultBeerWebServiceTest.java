@@ -1,14 +1,13 @@
-package uk.codersparks.hackspace.beerweb.service;
+package uk.codersparks.hackspace.beerweb.v1.service;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
-import uk.codersparks.hackspace.beerweb.exception.BeerWebException;
-import uk.codersparks.hackspace.beerweb.model.Beer;
-import uk.codersparks.hackspace.beerweb.repository.BeerRepository;
+import uk.codersparks.hackspace.beerweb.v1.exception.BeerWebException;
+import uk.codersparks.hackspace.beerweb.v1.model.Beer;
+import uk.codersparks.hackspace.beerweb.v1.repository.BeerRepository;
 
-import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;

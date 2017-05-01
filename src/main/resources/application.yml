@@ -7,6 +7,10 @@ spring:
   h2:
     console:
       enabled: true
+      path: /h2console
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
   jpa:
     hibernate:
       ddl-auto: validate

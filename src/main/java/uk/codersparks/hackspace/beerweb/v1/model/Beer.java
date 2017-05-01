@@ -1,4 +1,4 @@
-package uk.codersparks.hackspace.beerweb.model;
+package uk.codersparks.hackspace.beerweb.v1.model;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package uk.codersparks.hackspace.beerweb.web;
+package uk.codersparks.hackspace.beerweb.v1.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +18,5 @@ public class BeerWebUIController {
     @RequestMapping(path="/manual.html")
     public String manual() {
         return "manual";
-    }
-
-    @RequestMapping(path="/simple")
-    public String simple() {
-        return "simple";
     }
 }
