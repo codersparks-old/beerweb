@@ -1,6 +1,5 @@
 package uk.codersparks.hackspace.beerweb.v2.service;
 
-import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import uk.codersparks.hackspace.beerweb.v2.repository.PumpRepository;
 import uk.codersparks.hackspace.beerweb.v2.repository.RatingRepository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -180,8 +178,9 @@ public class DefaultBeerwebService implements BeerwebService {
                         runningTotal += rating.getRating();
 
                         // Would normally do this in a stream but we are looping over each item already
-
-                        pumpSummary.getRatings().add(rating);
+                        if(pumpSummary.getLast10Ratings().size() < 10) {
+                            pumpSummary.getLast10Ratings().add(rating);
+                        }
                     }
 
 

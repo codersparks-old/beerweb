@@ -16,5 +16,5 @@ public class PumpSummary {
     private int runningTotal = 0;
     private int numRatings = 0;
     private float average = 0;
-    private final List<Rating> ratings = new ArrayList<>();
+    private final List<Rating> last10Ratings = new ArrayList<>();
 }
