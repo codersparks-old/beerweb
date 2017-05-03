@@ -2,9 +2,12 @@ package uk.codersparks.hackspace.beerweb.v2.interfaces;
 
 import uk.codersparks.hackspace.beerweb.v2.exception.BeerwebException;
 import uk.codersparks.hackspace.beerweb.v2.model.Pump;
+import uk.codersparks.hackspace.beerweb.v2.model.PumpSummary;
 import uk.codersparks.hackspace.beerweb.v2.model.Rating;
+import uk.codersparks.hackspace.beerweb.v2.service.DefaultBeerwebService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO: Add Javadoc
@@ -29,4 +32,5 @@ public interface BeerwebService {
 
     List<Rating> getRatingsByBeer(String rfid);
 
+    Map<String, PumpSummary> getPumpSummaryMap();
 }

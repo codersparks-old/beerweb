@@ -1,5 +1,6 @@
 package uk.codersparks.hackspace.beerweb.v2.service;
 
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -7,12 +8,16 @@ import uk.codersparks.hackspace.beerweb.v2.exception.BeerwebException;
 import uk.codersparks.hackspace.beerweb.v2.exception.BeerwebNotFoundException;
 import uk.codersparks.hackspace.beerweb.v2.interfaces.BeerwebService;
 import uk.codersparks.hackspace.beerweb.v2.model.Pump;
+import uk.codersparks.hackspace.beerweb.v2.model.PumpSummary;
 import uk.codersparks.hackspace.beerweb.v2.model.Rating;
 import uk.codersparks.hackspace.beerweb.v2.repository.PumpRepository;
 import uk.codersparks.hackspace.beerweb.v2.repository.RatingRepository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -152,6 +157,45 @@ public class DefaultBeerwebService implements BeerwebService {
         List<Rating> ratings = StreamSupport.stream(ratingRepository.findAllByRfidOrderByTimestampDesc(rfid).spliterator(), false).collect(Collectors.toList());
 
         return ratings;
+    }
+
+    @Override
+    public Map<String, PumpSummary> getPumpSummaryMap() {
+        return StreamSupport.stream(this.getAllPumps().spliterator(), false)
+                .filter(pump -> pump.getAssignedRfid() != null)
+                .map(pump -> {
+                    PumpSummary pumpSummary = new PumpSummary();
+                    pumpSummary.setPumpName(pump.getPumpName());
+                    pumpSummary.setLoadedBeerRfid(pump.getAssignedRfid());
+
+                    Iterable<Rating> ratings = this.getRatingsByBeer(pump.getAssignedRfid());
+
+                    int numRatings = 0;
+                    int runningTotal = 0;
+
+                    // Can't think of a way to do this with streams yet
+                    for(Rating rating : ratings) {
+
+                        numRatings += 1;
+                        runningTotal += rating.getRating();
+
+                        // Would normally do this in a stream but we are looping over each item already
+
+                        pumpSummary.getRatings().add(rating);
+                    }
+
+
+
+                    pumpSummary.setNumRatings(numRatings);
+                    pumpSummary.setRunningTotal(runningTotal);
+                    // If the numRatings is 0 then average is zero otherwise calculate
+                    pumpSummary.setAverage(numRatings == 0 ? 0 : (float)runningTotal/numRatings);
+
+
+                    return pumpSummary;
+
+                })
+                .collect(Collectors.toMap(PumpSummary::getPumpName, Function.identity()));
     }
 
 

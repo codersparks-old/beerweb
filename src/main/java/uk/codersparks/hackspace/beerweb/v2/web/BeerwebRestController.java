@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import uk.codersparks.hackspace.beerweb.v2.exception.BeerwebException;
 import uk.codersparks.hackspace.beerweb.v2.interfaces.BeerwebService;
 import uk.codersparks.hackspace.beerweb.v2.model.Pump;
+import uk.codersparks.hackspace.beerweb.v2.model.PumpSummary;
 import uk.codersparks.hackspace.beerweb.v2.model.Rating;
+import uk.codersparks.hackspace.beerweb.v2.service.DefaultBeerwebService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,60 +158,14 @@ public class BeerwebRestController {
 
         logger.info("Received message to handle Socket Message - Generating upto date summary");
 
-        Map<String, PumpSummary> pumpSumaryMap = StreamSupport.stream(beerwebService.getAllPumps().spliterator(), false)
-                .filter(pump -> pump.getAssignedRfid() != null)
-                .map(pump -> {
-                    PumpSummary pumpSummary = new PumpSummary();
-                    pumpSummary.setPumpName(pump.getPumpName());
-                    pumpSummary.setLoadedBeerRfid(pump.getAssignedRfid());
-
-                    Iterable<Rating> ratings = beerwebService.getRatingsByBeer(pump.getAssignedRfid());
-
-                    int numRatings = 0;
-                    int runningTotal = 0;
-
-                    // Can't think of a way to do this with streams yet
-                    for(Rating rating : ratings) {
-
-                        numRatings += 1;
-                        runningTotal += rating.getRating();
-
-                        // Would normally do this in a stream but we are looping over each item already
-
-                        pumpSummary.getRatings().add(rating);
-                    }
-
-
-
-                    pumpSummary.setNumRatings(numRatings);
-                    pumpSummary.setRunningTotal(runningTotal);
-                    // If the numRatings is 0 then average is zero otherwise calculate
-                    pumpSummary.setAverage(numRatings == 0 ? 0 : (float)runningTotal/numRatings);
-
-
-                    return pumpSummary;
-
-                })
-                .collect(Collectors.toMap(PumpSummary::getPumpName, Function.identity()));
+        Map<String, PumpSummary> pumpSumaryMap = beerwebService.getPumpSummaryMap();
 
         logger.info("Sending summary map: {}", pumpSumaryMap);
 
         return pumpSumaryMap;
     }
 
-    @Data
-    public static final class PumpSummary {
 
-        private String pumpName;
-        private String loadedBeerRfid;
-        private int runningTotal = 0;
-        private int numRatings = 0;
-        private float average = 0;
-        private final List<Rating> ratings = new ArrayList<>();
-
-
-
-    }
 
 
 }
