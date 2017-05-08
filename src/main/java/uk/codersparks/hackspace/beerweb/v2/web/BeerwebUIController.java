@@ -18,4 +18,7 @@ public class BeerwebUIController {
     public String manual() {
         return "v2/manual";
     }
+
+    @GetMapping(path="/v2/d3.html")
+    public  String d3() { return "v2/d3";}
 }
