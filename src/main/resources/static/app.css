@@ -15,6 +15,27 @@ th {
 
 }
 
+.border-inner {
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    border-top: 0px;
+    border-bottom: 0px;
+}
+
+.border-left {
+    border-right: 1px solid black;
+    border-left: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+}
+
+.border-right {
+    border-left: 1px solid black;
+    border-rightt: 0px;
+    border-top: 0px;
+    border-bottom: 0px;
+}
+
 .chart {
     background: lightgray;
     border: 1px solid black;
@@ -23,7 +44,7 @@ th {
 }
 
 .ct-bar {
-    stroke-width: 60px;
+    stroke-width: 40px;
 }
 
 .ct-chart .ct-bar:nth-of-type(9n+1) {
@@ -62,3 +83,85 @@ th {
     stroke: #455A64
 }
 
+.ct-series-a .ct-line, .ct-series-a .ct-point {
+    stroke: #D32F2F
+}
+
+.ct-series-b .ct-line, .ct-series-b .ct-point {
+    stroke: #7B1FA2
+}
+
+.ct-series-c .ct-line, .ct-series-c .ct-point {
+    stroke: #303F9F
+}
+
+.ct-series-d .ct-line, .ct-series-d .ct-point {
+    stroke: #0288D1
+}
+
+.ct-series-e .ct-line, .ct-series-e .ct-point {
+    stroke: #00796B
+}
+.ct-series-f .ct-line, .ct-series-f .ct-point {
+    stroke: #689F38
+}
+.ct-series-g .ct-line, .ct-series-g .ct-point {
+    stroke: #FBC02D
+}
+.ct-series-h .ct-line, .ct-series-h .ct-point {
+    stroke: #F57C00
+}
+.ct-series-i .ct-line, .ct-series-i .ct-point {
+    stroke: #455A64
+}
+.ct-series-j .ct-line, .ct-series-j .ct-point {
+    stroke: #D32F2F
+}
+.ct-series-k .ct-line, .ct-series-k .ct-point {
+    stroke: #7B1FA2
+}
+.ct-series-l .ct-line, .ct-series-l .ct-point {
+    stroke: #303F9F
+}
+.ct-series-m .ct-line, .ct-series-m .ct-point {
+    stroke: #0288D1
+}
+.ct-series-n .ct-line, .ct-series-n .ct-point {
+    stroke: #00796B
+}
+
+/*.ct-chart .ct-line:nth-of-type(9n+1) {*/
+    /*stroke: #D32F2F*/
+/*}*/
+
+/*.ct-chart .ct-line:nth-of-type(9n+2) {*/
+    /*stroke: #7B1FA2*/
+/*}*/
+
+/*.ct-chart .ct-line:nth-of-type(9n+3) {*/
+    /*stroke: #303F9F*/
+/*}*/
+
+/*.ct-chart .ct-line:nth-of-type(9n+4) {*/
+    /*stroke: #0288D1*/
+/*}*/
+
+/*.ct-chart .ct-line:nth-of-type(9n+5) {*/
+    /*stroke: #00796B*/
+/*}*/
+
+/*.ct-chart .ct-line:nth-of-type(9n+6) {*/
+    /*stroke: #689F38*/
+/*}*/
+
+/*.ct-chart .ct-line:nth-of-type(9n+7) {*/
+    /*stroke: #FBC02D*/
+/*}*/
+
+/*.ct-chart .ct-line:nth-of-type(9n+8) {*/
+    /*stroke: #F57C00*/
+/*}*/
+
+/*.ct-chart .ct-line:nth-of-type(9n+9) {*/
+    /*stroke: #455A64*/
+/*}*/

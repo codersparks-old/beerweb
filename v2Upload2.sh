@@ -17,10 +17,15 @@ curl -XDELETE http://$HOST:$PORT/v2/api/
 
 read -p "About to setup pumps and assign beers...Press enter to continue"
 
-for i in {1..8}
+for i in {1..15}
 do
 
-    echo "creting pump: 'pump %i'"
+    if (( $i < 10 ))
+    then
+        i="0$i"
+    fi
+
+    echo "creting pump: pump $i"
 	curl -XPOST -H"Accept: application/json" http://$HOST:$PORT/v2/api/pump/pump%20$i
 	echo ""
 	sleep .5
@@ -34,7 +39,12 @@ read -p "About to start generating date...Press enter to continue - Press CTRL+c
 
 while True
 do
-	PUMP=$((1 + RANDOM % 8))
+	PUMP=$((1 + RANDOM % 15))
+
+	if (( $PUMP < 10 ))
+	then
+	    PUMP="0$PUMP"
+	fi
 	RATING=$((1 + RANDOM % 5))
 	echo "Submitting Rating $RATING for pump $PUMP"
 	curl -XPOST -H"Accept: application/json" http://$HOST:$PORT/v2/api/pump/pump%20$PUMP/rating/$RATING
