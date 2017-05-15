@@ -14,7 +14,9 @@ import uk.codersparks.hackspace.beerweb.v1.interfaces.BeerWebService;
 
 import java.util.Map;
 
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -72,7 +74,7 @@ public class BeerWebControllerTest {
 
         verify(beerWebService).registerBeerRating(pumpId, rfId, 5);
         verify(beerWebService).getAllPumpData();
-        verify(template).convertAndSend(any(Map.class));
+        verify(template).convertAndSend(eq("/topic/pumpdata"),any(Map.class));
         verifyNoMoreInteractions(beerWebService, template);
     }
 
@@ -89,7 +91,7 @@ public class BeerWebControllerTest {
 
         verify(beerWebService).registerBeerRating(pumpId, rfId, 5);
         verify(beerWebService).getAllPumpData();
-        verify(template).convertAndSend(any(Map.class));
+        verify(template).convertAndSend(eq("/topic/pumpdata"),any(Map.class));
         verifyNoMoreInteractions(beerWebService, template);
     }
 }

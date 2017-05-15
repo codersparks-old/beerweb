@@ -74,7 +74,7 @@ public class DefaultBeerWebServiceTest {
         assertEquals(0, capturedBeer.getNumRatings());
         assertEquals(0, capturedBeer.getRunningTotalRating());
 
-        assertNull(capturedBeer.getLastVote());
+        assertNotNull(capturedBeer.getLastVote());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class DefaultBeerWebServiceTest {
         assertEquals(0, capturedBeer.getNumRatings());
         assertEquals(0, capturedBeer.getRunningTotalRating());
 
-        assertNull(capturedBeer.getLastVote());
+        assertNotNull(capturedBeer.getLastVote());
     }
 
     @Test
