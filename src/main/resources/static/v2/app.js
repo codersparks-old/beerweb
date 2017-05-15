@@ -216,11 +216,10 @@ app.controller("PumpSummaryController", function ($scope, $location, moment, Cha
 
             for (var i = 0; i < 10; i++) {
 
-                if (i < valuesToFill) {
+                if (i >= pumpSummary.last10Ratings.length) {
                     pumpLatestRatings.push(null);
                 } else {
-                    pumpLatestRatings.push(pumpSummary.last10Ratings[pos].rating);
-                    pos = pos + 1;
+                    pumpLatestRatings.push(pumpSummary.last10Ratings[i].rating);
                 }
 
             }

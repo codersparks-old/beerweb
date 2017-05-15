@@ -10,14 +10,19 @@ then
 	PORT=8080
 fi
 
-echo "HOST: $HOST & PORT: $PORT"
+if [ -z "$NUM_PUMPS" ]
+then
+	NUM_PUMPS=15
+fi
+
+echo "HOST: $HOST & PORT: $PORT & NUM_PUMPS: $NUM_PUMPS"
 
 read -p "About to Delete all data...Press enter to continue"
 curl -XDELETE http://$HOST:$PORT/v2/api/
 
 read -p "About to setup pumps and assign beers...Press enter to continue"
 
-for i in {1..15}
+for i in $( seq 1 $NUM_PUMPS)
 do
 
     if (( $i < 10 ))
@@ -39,7 +44,7 @@ read -p "About to start generating date...Press enter to continue - Press CTRL+c
 
 while True
 do
-	PUMP=$((1 + RANDOM % 15))
+	PUMP=$((1 + RANDOM % $NUM_PUMPS))
 
 	if (( $PUMP < 10 ))
 	then
