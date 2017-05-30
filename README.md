@@ -26,3 +26,4 @@ Obviously replacing <version> with the downloaded version (or locally built vers
     java -jar -Dspring.profiles.active="local" -Dserver.port=9090 beerweb-<version>.war
     
 Note: Only one instance can be running at once (due to database configuration)
+
