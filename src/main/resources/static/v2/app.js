@@ -26,7 +26,21 @@ app.config(function ($mdThemingProvider, $mdIconProvider) {
         .fontSet('fa', 'FontAwesome');
 });
 
+app.controller("toolbarCtrl", function($scope) {
+    $scope.showManual = false;
+
+    $scope.toggleManual = function() {
+        $scope.showManual = ! $scope.showManual;
+    }
+});
+
 app.controller("BeerwebV2Summary", function($scope, $http) {
+
+    $scope.showManual = false;
+
+    $scope.toggleManual = function() {
+        $scope.showManual = ! $scope.showManual;
+    }
 
     $scope.beerId = null;
     $scope.beerSummary = null;
@@ -60,6 +74,7 @@ app.controller("BeerwebV2Summary", function($scope, $http) {
 });
 
 app.controller("BeerwebV2Manual", function ($scope, $http, $mdToast, $mdDialog) {
+
 
     $scope.registerData = {};
     $scope.rateDate = {};
@@ -189,6 +204,12 @@ app.controller("BeerwebV2Manual", function ($scope, $http, $mdToast, $mdDialog) 
 
 app.controller("PumpSummaryController", function ($scope, $location, moment, Chartist) {
 
+    $scope.showManual = false;
+
+    $scope.toggleManual = function() {
+        $scope.showManual = ! $scope.showManual;
+        console.log("ToggleManual value: " + $scope.showManual);
+    }
     $scope.pumpSummaryMap = {};
 
     $scope.initialisationMessage = true;

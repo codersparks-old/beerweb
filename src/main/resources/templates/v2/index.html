@@ -9,8 +9,17 @@
 </head>
 <body ng-app="BeerwebV2" ng-cloak>
 
-<md-toolbar>
-    <div class="md-toolbar-tools">Beerweb - View Results Page</div>
+<md-toolbar ng-controller="toolbarCtrl">
+    <div>
+        <div class="md-toolbar-tools">
+            <div>Beerwe<span ng-click="toggleManual()">b</span> - View Live Results</div>
+            <div flex></div>
+            <div>
+                <md-button ng-href="/v2/manual.html" ng-if="showManual">Manual Entry</md-button>
+                <md-button ng-href="/v2/index.html">View Live Results</md-button>
+                <md-button ng-href="/v2/summary.html">View Summaries</md-button>
+            </div>
+        </div>
 </md-toolbar>
 
 <div ng-controller="PumpSummaryController as psc" flex ng-cloak>
@@ -32,7 +41,7 @@
                 </div>
                 <div flex="5" hide-sm></div>
                 <div layout="column" layout-align="center center" flex>
-                    <div class="md-headline" >Latest Ratings</div>
+                    <div class="md-headline">Latest Ratings</div>
                     <div id="latestChart" class="ct-chart ct-double-octave" flex></div>
                 </div>
                 <div flex="5" hide-sm></div>
@@ -40,7 +49,7 @@
             <md-grid-list ng-if="! psc.checkForEmptyData()" md-cols="5" md-cols-xs="1" md-cols-sm="2" md-cols-md="3"
                           md-cols-gt-md="5"
                           md-row-height="100px"
-                          md-gutter="1em" >
+                          md-gutter="1em">
 
                 <md-grid-tile ng-repeat="(pump, pumpSummary) in pumpSummaryMap" flex>
 
@@ -54,35 +63,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <!--<tr>-->
-                            <!--<th>Running Ratings Total:</th>-->
-                            <!--<td>{{pumpSummary.runningTotal}}</td>-->
-                        <!--</tr>-->
-                        <!--<tr>-->
-                            <!--<th>Number of ratings:</th>-->
-                            <!--<td>{{pumpSummary.numRatings}}</td>-->
-                        <!--</tr>-->
                         <tr>
                             <td>
                                 <div layout="row">
-                                    <div class="border-left" flex><span class="beerweb-heading">Average Rating</span></div>
+                                    <div class="border-left" flex><span class="beerweb-heading">Average Rating</span>
+                                    </div>
                                     <div class="border-inner" flex>{{pumpSummary.average | number : 2 }}</div>
-                                    <div class="border-inner" flex><span class="beerweb-heading">Last Rating:</span></div>
+                                    <div class="border-inner" flex><span class="beerweb-heading">Last Rating:</span>
+                                    </div>
                                     <div class="border-right" flex>{{pumpSummary.last10Ratings[0].rating}}</div>
                                 </div>
                             </td>
-                            <!--<th>Average Rating:</th>-->
-                            <!--<td>{{pumpSummary.average | number : 2}}</td>-->
-                            <!--&lt;!&ndash;<th>Last Rating:</th>&ndash;&gt;-->
-                            <!--<td>{{pumpSummary.last10Ratings[0].rating}}</td>-->
                         </tr>
-                        <!--<tr>-->
-                            <!--<th>Last Vote:</th>-->
-                            <!--<td ng-if="pumpSummary.numRatings > 0">{{ psc.formatDate(pumpSummary.ratings[0].timestamp)-->
-                                <!--}}-->
-                            <!--</td>-->
-                            <!--<td ng-if="pumpSummary.numRatings == 0"></td>-->
-                        <!--</tr>-->
                         </tbody>
                     </table>
                 </md-grid-tile>

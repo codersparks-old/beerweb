@@ -9,10 +9,20 @@
 </head>
 <body ng-app="BeerwebV2" ng-cloak>
 <md-content>
+    <md-toolbar ng-controller="toolbarCtrl">
+        <div>
+            <div class="md-toolbar-tools">
+                <div>Beerwe<span ng-click="toggleManual()">b</span> - View Summaries</div>
+                <div flex></div>
+                <div>
+                    <md-button ng-href="/v2/manual.html" ng-if="showManual">Manual Entry</md-button>
+                    <md-button ng-href="/v2/index.html">View Live Results</md-button>
+                    <md-button ng-href="/v2/summary.html">View Summaries</md-button>
+                </div>
+            </div>
+    </md-toolbar>
     <div ng-controller="BeerwebV2Summary">
-        <md-toolbar>
-            <div class="md-toolbar-tools">Beerweb - Summary Page</div>
-        </md-toolbar>
+
 
         <md-card>
             <md-card-title>

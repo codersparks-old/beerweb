@@ -7,10 +7,21 @@
 </head>
 <body ng-app="BeerwebV2" ng-cloak>
 
+<md-toolbar ng-controller="toolbarCtrl">
+    <div>
+        <div class="md-toolbar-tools">
+            <div>Beerwe<span ng-click="toggleManual()">b</span> - Manual Entry</div>
+            <div flex></div>
+            <div>
+                <md-button ng-href="/v2/manual.html" ng-if="showManual">Manual Entry</md-button>
+                <md-button ng-href="/v2/index.html">View Live Results</md-button>
+                <md-button ng-href="/v2/summary.html">View Summaries</md-button>
+            </div>
+        </div>
+</md-toolbar>
+
 <div ng-controller="BeerwebV2Manual">
-    <md-toolbar>
-        <div class="md-toolbar-tools">Beerweb - Manual Input Page</div>
-    </md-toolbar>
+
 
     <form name="registerBeerForm" ng-submit="processRegisterBeerForm()">
         <md-card flex>
