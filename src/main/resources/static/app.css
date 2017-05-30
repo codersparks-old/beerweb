@@ -15,6 +15,18 @@ th {
 
 }
 
+.fa {
+    padding-right: 5px;
+}
+
+.padding-5R {
+    padding-right: 5px;
+}
+
+.ratingcard {
+    padding: 10px;
+}
+
 .border-inner {
     border-right: 1px solid black;
     border-left: 1px solid black;

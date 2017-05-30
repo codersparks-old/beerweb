@@ -11,7 +11,7 @@ app.factory('Chartist', function ($window) {
     return $window.Chartist;
 })
 
-app.config(function ($mdThemingProvider) {
+app.config(function ($mdThemingProvider, $mdIconProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('blue-grey', {
             'default': '900',
@@ -20,6 +20,43 @@ app.config(function ($mdThemingProvider) {
             'hue-3': '300'
         })
         .accentPalette('teal');
+
+    $mdIconProvider
+        .defaultFontSet('FontAwesome')
+        .fontSet('fa', 'FontAwesome');
+});
+
+app.controller("BeerwebV2Summary", function($scope, $http) {
+
+    $scope.beerId = null;
+    $scope.beerSummary = null;
+
+    $scope.beerIdChange = function(beerId) {
+        console.log("Selected beerId: " + beerId);
+
+        if($scope.beerId === null || $scope.beerId === "" || $scope.beerId == undefined) {
+            $scope.beerSummary = null;
+        } else {
+            $http.get("/v2/api/beer/" + $scope.beerId).then(function (response) {
+                $scope.beerSummary = response.data;
+                console.log("Beer Summary:");
+                console.log($scope.beerSummary);
+            })
+        }
+    }
+
+    angular.element(document).ready(function () {
+        console.log("Loading  BeerwebV2Summary from v2/app.js");
+
+        $http.get("/v2/api/beer/ids/").then(function (response) {
+            $scope.beerIds = response.data;
+
+            console.log("BeerIds:");
+            console.log($scope.beerIds);
+
+
+        })
+    });
 });
 
 app.controller("BeerwebV2Manual", function ($scope, $http, $mdToast, $mdDialog) {

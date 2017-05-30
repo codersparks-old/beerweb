@@ -8,7 +8,7 @@ Building
 
 The project is designed to load into an openshift (v2) wildfly 10 cartridge however, it can be build for running locally using the following [Maven](https://maven.apache.org/) command
 
-    mvn -P local clean verify
+    mvn -P package clean verify
     
 The war file (beerweb-<version>.war) can be found in the `target` directory
     
@@ -24,3 +24,5 @@ The server can be started using the following command (obviously with Java 8 (mi
 Obviously replacing <version> with the downloaded version (or locally built version) To run the server on a different port the `-Dserver.port=<port>` config can be used for example to run on port 9090:
 
     java -jar -Dspring.profiles.active="local" -Dserver.port=9090 beerweb-<version>.war
+    
+Note: Only one instance can be running at once (due to database configuration)

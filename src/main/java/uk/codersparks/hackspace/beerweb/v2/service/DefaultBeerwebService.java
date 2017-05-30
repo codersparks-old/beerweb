@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import uk.codersparks.hackspace.beerweb.v2.exception.BeerwebException;
 import uk.codersparks.hackspace.beerweb.v2.exception.BeerwebNotFoundException;
 import uk.codersparks.hackspace.beerweb.v2.interfaces.BeerwebService;
+import uk.codersparks.hackspace.beerweb.v2.model.BeerSummary;
 import uk.codersparks.hackspace.beerweb.v2.model.Pump;
 import uk.codersparks.hackspace.beerweb.v2.model.PumpSummary;
 import uk.codersparks.hackspace.beerweb.v2.model.Rating;
@@ -15,6 +16,7 @@ import uk.codersparks.hackspace.beerweb.v2.repository.RatingRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -195,6 +197,60 @@ public class DefaultBeerwebService implements BeerwebService {
 
                 })
                 .collect(Collectors.toMap(PumpSummary::getPumpName, Function.identity()));
+    }
+
+    @Override
+    public Map<String, BeerSummary> getBeerSummary() {
+
+
+        final Map<String, List<Rating>> ratingsByRfid = StreamSupport.stream(ratingRepository.findAll().spliterator(), false).collect(Collectors.groupingBy(Rating::getRfid));
+
+        Map<String, BeerSummary> beerSummaryMap = ratingsByRfid.keySet().stream().parallel().map(rfid -> {
+
+            BeerSummary beerSummary = new BeerSummary();
+
+            List<Rating> ratings = ratingsByRfid.get(rfid);
+            beerSummary.setBeerRfId(rfid);
+
+            double averageRating = ratings.stream().mapToInt(Rating::getRating).average().getAsDouble();
+            beerSummary.setAverageRatings(averageRating);
+
+            beerSummary.setNumberOfRatings(ratings.size());
+
+            beerSummary.setRatings(ratings);
+
+            return beerSummary;
+        }).collect(Collectors.toMap(BeerSummary::getBeerRfId, Function.identity()));
+
+        return beerSummaryMap;
+
+    }
+
+
+    @Override
+    public BeerSummary getBeerSummary(String id) {
+
+        Iterable<Rating> ratings = ratingRepository.findAllByRfidOrderByTimestampDesc(id);
+
+        BeerSummary beerSummary = new BeerSummary();
+        beerSummary.setBeerRfId(id);
+
+        StreamSupport.stream(ratings.spliterator(), true).forEach(rating -> beerSummary.getRatings().add(rating));
+
+        double averageRating = StreamSupport.stream(ratings.spliterator(), false).mapToInt(Rating::getRating).average().getAsDouble();
+        beerSummary.setAverageRatings(averageRating);
+        beerSummary.setNumberOfRatings(beerSummary.getRatings().size());
+
+        return beerSummary;
+    }
+
+    @Override
+    public Set<String> getBeerIds() {
+        Iterable<Rating> ratings = ratingRepository.findAll();
+
+        final Map<String, List<Rating>> ratingsByRfid = StreamSupport.stream(ratingRepository.findAll().spliterator(), false).collect(Collectors.groupingBy(Rating::getRfid));
+
+        return ratingsByRfid.keySet();
     }
 
 

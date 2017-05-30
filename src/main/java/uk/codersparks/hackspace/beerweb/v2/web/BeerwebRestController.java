@@ -11,6 +11,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import uk.codersparks.hackspace.beerweb.v2.exception.BeerwebException;
 import uk.codersparks.hackspace.beerweb.v2.interfaces.BeerwebService;
+import uk.codersparks.hackspace.beerweb.v2.model.BeerSummary;
 import uk.codersparks.hackspace.beerweb.v2.model.Pump;
 import uk.codersparks.hackspace.beerweb.v2.model.PumpSummary;
 import uk.codersparks.hackspace.beerweb.v2.model.Rating;
@@ -19,6 +20,7 @@ import uk.codersparks.hackspace.beerweb.v2.service.DefaultBeerwebService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -149,6 +151,25 @@ public class BeerwebRestController {
     public ResponseEntity<List<Rating>> getAllRatings(){
 
         return ResponseEntity.ok(beerwebService.getRatings());
+    }
+
+    @GetMapping(path="/beer", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.TEXT_XML_VALUE})
+    public ResponseEntity<Map<String, BeerSummary>> getBeerSummaries() {
+        return ResponseEntity.ok(beerwebService.getBeerSummary());
+    }
+
+    @GetMapping(path="/beer/{id}",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.TEXT_XML_VALUE})
+    public ResponseEntity<BeerSummary> getBeerSummary(@PathVariable(name="id") String id) {
+        return ResponseEntity.ok(beerwebService.getBeerSummary(id));
+    }
+
+    @GetMapping(path="/beer/ids", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.TEXT_XML_VALUE})
+    public ResponseEntity<Set<String>> getBeerIds() {
+
+        Set<String> ids = beerwebService.getBeerIds();
+
+        return ResponseEntity.ok(ids);
     }
 
 

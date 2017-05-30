@@ -53,7 +53,10 @@ do
 	RATING=$((1 + RANDOM % 5))
 	echo "Submitting Rating $RATING for pump $PUMP"
 	curl -XPOST -H"Accept: application/json" http://$HOST:$PORT/v2/api/pump/pump%20$PUMP/rating/$RATING
-	SLEEPTIME=$(( (1 + RANDOM % 10000) / 1000  ))
+	if [ -z "$SLEEPTIME" ]
+	then
+		SLEEPTIME=$(( (1 + RANDOM % 10000) / 1000  ))
+	fi
 	echo ""
 	echo "Sleeping for $SLEEPTIME..."
 	sleep $SLEEPTIME

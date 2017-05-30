@@ -18,4 +18,7 @@ public class BeerwebUIController {
     public String manual() {
         return "v2/manual";
     }
+
+    @GetMapping(path="/v2/summary.html")
+    public String summary() { return "v2/summary";}
 }

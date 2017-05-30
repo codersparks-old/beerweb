@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="/webjars/angular-material/1.1.3/angular-material.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>
+    <link rel="stylesheet" href="/app.css"
+</head>
+<body ng-app="BeerwebV2" ng-cloak>
+<md-content>
+    <div ng-controller="BeerwebV2Summary">
+        <md-toolbar>
+            <div class="md-toolbar-tools">Beerweb - Summary Page</div>
+        </md-toolbar>
+
+        <md-card>
+            <md-card-title>
+                <md-toolbar class="md-toolbar-tools md-primary"><span
+                        class="md-headline">Select rfid to view summary for</span>
+                </md-toolbar>
+            </md-card-title>
+            <md-card-content>
+
+                <div ng-hide="beerIds.length == 0">
+                    <div flex="20"></div>
+                    <md-select ng-model="beerId" ng-change="beerIdChange(beerId)" flex>
+                        <md-option ng-value=""></md-option>
+                        <md-option ng-repeat="bid in beerIds track by $index" ng-value="bid">{{ bid }}</md-option>
+                    </md-select>
+                    <div flex="20"></div>
+                </div>
+                <div ng-show="beerIds.length == 0">
+                    <div flex="20"></div>
+                    <div flex><span class="md-headline">No ratings for any beer to display summary for</span></div>
+                    <div flex="20"></div>
+                </div>
+            </md-card-content>
+
+
+        </md-card>
+
+        <md-card ng-hide="beerSummary === null">
+            <md-card-content>
+
+                <md-toolbar class="md-theme-light">
+                    <h2 class="md-toolbar-tools">
+                        <span>Beer RFID: {{ beerSummary.beerRfId }}</span>
+                    </h2>
+                </md-toolbar>
+                <div layout="row">
+                    <div flex="10"></div>
+                    <div flex>
+                        <h3>Total Number of Ratings:</h3>
+                        <h3>{{ beerSummary.numberOfRatings }}</h3>
+                    </div>
+                    <div flex="10"></div>
+                    <div flex>
+                        <h3>Average Rating:</h3>
+                        <h3>{{ beerSummary.averageRatings | number : 2 }}</h3>
+                    </div>
+
+                    <div flex="10"></div>
+                </div>
+                <md-toolbar class="md-toolbar-tools">
+                    <span class="md-headline">Ratings:</span>
+                </md-toolbar>
+
+                <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="3" md-cols="4" md-cols-print="1"
+                              md-row-height="75">
+                    <md-grid-tile ng-repeat="rating in beerSummary.ratings | orderBy:'timestamp' track by $index" flex>
+                        <md-card class="ratingcard" flex>
+                            <div layout="column" layout-align="center center">
+                                <div flex="10"></div>
+                                <div layout="row">
+                                    <div class="padding-5R"><i class="fa fa-clock-o" aria-hidden="true"></i>Date/Time:</div>
+                                    <div> {{ rating.timestamp | date:'dd/MM/yy HH:mm' }}</div>
+                                </div>
+                                <div flex="10"></div>
+                                <div layout="row">
+                                    <div class="padding-5R">
+                                        <i ng-class="{ 'fa fa-thermometer-1' : rating.rating == 1,
+                                        'fa fa-thermometer-2' : rating.rating == 2,
+                                        'fa fa-thermometer-3' : rating.rating == 3,
+                                        'fa fa-thermometer-4' : rating.rating >= 4
+                                    }" aria-hidden="true"></i>
+                                        Rating:
+                                    </div>
+                                    <div>{{ rating.rating }}</div>
+
+                                </div>
+                                <div flex="10"></div>
+                            </div>
+                        </md-card>
+                    </md-grid-tile>
+                </md-grid-list>
+            </md-card-content>
+        </md-card>
+
+    </div>
+
+
+    </div>
+</md-content>
+
+<!-- Angular Material requires Angular.js Libraries -->
+<script src="/webjars/angularjs/1.6.2/angular.min.js"></script>
+<script src="/webjars/angularjs/1.6.2/angular-animate.min.js"></script>
+<script src="/webjars/angularjs/1.6.2/angular-aria.min.js"></script>
+<script src="/webjars/angularjs/1.6.2/angular-messages.min.js"></script>
+<script src="/webjars/sockjs-client/1.1.1/sockjs.min.js"></script>
+
+
+<script src="/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
+
+<!-- Angular Material Library -->
+<script src="/webjars/angular-material/1.1.3/angular-material.min.js"></script>
+
+<script src="/v2/app.js"></script>
+
+<!-- Your application bootstrap  -->
+<script type="text/javascript">
+    /**
+     * You must include the dependency on 'ngMaterial'
+     */
+
+</script>
+
+</body>
+</html>
