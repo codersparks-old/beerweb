@@ -89,6 +89,14 @@ public class BeerwebRestController {
         return ResponseEntity.ok(pumpList);
     }
 
+    @GetMapping(
+            path="/pump/",
+        produces={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.TEXT_XML_VALUE}
+    )
+    public ResponseEntity<List<Pump>> getAllPumps() {
+        return ResponseEntity.ok(beerwebService.getAllPumps());
+    }
+
     @RequestMapping(
             path = "/pump/{id}/beer/{rfid}",
             method = RequestMethod.POST,

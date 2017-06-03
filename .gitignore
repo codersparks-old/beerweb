@@ -38,3 +38,6 @@ hs_err_pid*
 
 .idea
 *.iml
+
+# When running with the WIN profile then we have a dbfile called
+beerwebdb
