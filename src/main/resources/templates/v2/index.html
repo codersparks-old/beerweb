@@ -58,7 +58,11 @@
                         <thead>
                         <tr>
                             <td>
-                                <md-toolbar class="md-toolbar-tools md-hue-3">{{ pump }}</md-toolbar>
+                                <md-toolbar class="md-toolbar-tools md-hue-3" layout="row" layout-align="space-around center">
+                                    <div>{{ pump }}</div>
+                                    <div flex hide show-gt-md></div>
+                                    <div hide show-gt-xs>Loaded ID: {{pumpSummary.loadedBeerRfid}}</div>
+                                </md-toolbar>
                             </td>
                         </tr>
                         </thead>
