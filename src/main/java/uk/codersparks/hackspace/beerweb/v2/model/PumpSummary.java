@@ -13,6 +13,7 @@ public class PumpSummary {
 
     private String pumpName;
     private String loadedBeerRfid;
+    private String loadedBeerName = null;
     private int runningTotal = 0;
     private int numRatings = 0;
     private float average = 0;

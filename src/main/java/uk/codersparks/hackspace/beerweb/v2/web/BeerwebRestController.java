@@ -119,6 +119,17 @@ public class BeerwebRestController {
     }
 
     @RequestMapping(
+        path="/pump/{id}/name/{beerName}",
+            method=RequestMethod.POST,
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.TEXT_XML_VALUE}
+            )
+    public ResponseEntity<Pump> nameBeer(@PathVariable("beerName") String beerName, @PathVariable("id") String pumpName) throws BeerwebException {
+
+        Pump pump = beerwebService.savePumpBeerName(pumpName, beerName);
+       return ResponseEntity.ok(pump);
+    }
+
+    @RequestMapping(
             path="/pump/{id}/rating/{score}",
             method=RequestMethod.POST,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.TEXT_XML_VALUE}

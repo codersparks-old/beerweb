@@ -1,5 +1,6 @@
 package uk.codersparks.hackspace.beerweb.v2.interfaces;
 
+import uk.codersparks.hackspace.beerweb.v1.exception.BeerWebException;
 import uk.codersparks.hackspace.beerweb.v2.exception.BeerwebException;
 import uk.codersparks.hackspace.beerweb.v2.model.BeerSummary;
 import uk.codersparks.hackspace.beerweb.v2.model.Pump;
@@ -26,6 +27,8 @@ public interface BeerwebService {
     void deleteAllData();
 
     Pump loadBeerToPump(String beerRfid, String pumpName) throws BeerwebException;
+
+    Pump savePumpBeerName(String pumpName, String beerName) throws BeerwebException;
 
     Rating registerRating(String pumpName, int rating) throws BeerwebException;
 

@@ -22,6 +22,30 @@
 
 <div ng-controller="BeerwebV2Manual">
 
+    <form name="nameBeerForm" ng-submit="processNameBeerForm()">
+        <md-card flex>
+            <md-card-content>
+                <md-toolbar class="md-toolbar-tools">
+                    <div class="md-headline">Add Name to beer</div>
+                </md-toolbar>
+                <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>Pump Name</label>
+                        <input name="pumpName" ng-model="nameData.pumpName" required />
+                        <div ng-messages="required">This is required</div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>Beer Name</label>
+                        <input name="beerName" ng-model="nameData.beerName" required />
+                        <div ng="message=required">This is required</div>
+                    </md-input-container>
+                </div>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button type="submit" class="md-raised md-primary">Submit</md-button>
+            </md-card-actions>
+        </md-card>
+    </form>
 
     <form name="registerBeerForm" ng-submit="processRegisterBeerForm()">
         <md-card flex>

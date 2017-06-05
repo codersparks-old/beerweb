@@ -3,6 +3,7 @@ package uk.codersparks.hackspace.beerweb.v2.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import uk.codersparks.hackspace.beerweb.v1.exception.BeerWebException;
 import uk.codersparks.hackspace.beerweb.v2.exception.BeerwebException;
 import uk.codersparks.hackspace.beerweb.v2.exception.BeerwebNotFoundException;
 import uk.codersparks.hackspace.beerweb.v2.interfaces.BeerwebService;
@@ -117,6 +118,23 @@ public class DefaultBeerwebService implements BeerwebService {
     }
 
     @Override
+    public Pump savePumpBeerName(String pumpName, String beerName) throws BeerwebException {
+        Pump pump = pumpRepository.findByPumpName(pumpName);
+
+        if(pump == null) {
+            String errorMessage = "No pump with name: " + pumpName;
+            logger.error(errorMessage);
+            throw new BeerwebException(errorMessage);
+        }
+
+        pump.setAssignedName(beerName);
+
+        pump = pumpRepository.save(pump);
+
+        return pump;
+    }
+
+    @Override
     public Rating registerRating(String pumpName, int score) throws BeerwebException {
 
         Pump pump = pumpRepository.findByPumpName(pumpName);
@@ -167,6 +185,10 @@ public class DefaultBeerwebService implements BeerwebService {
                     PumpSummary pumpSummary = new PumpSummary();
                     pumpSummary.setPumpName(pump.getPumpName());
                     pumpSummary.setLoadedBeerRfid(pump.getAssignedRfid());
+
+                    if(pump.getAssignedName() != null) {
+                        pumpSummary.setLoadedBeerName(pump.getAssignedName());
+                    }
 
                     Iterable<Rating> ratings = this.getRatingsByBeer(pump.getAssignedRfid());
 

@@ -77,7 +77,32 @@ app.controller("BeerwebV2Manual", function ($scope, $http, $mdToast, $mdDialog) 
 
 
     $scope.registerData = {};
+    $scope.nameData = {};
     $scope.rateDate = {};
+
+    $scope.processNameBeerForm = function() {
+        console.log("Pump name: " + $scope.nameData.pumpName + " Beer Name: " + $scope.nameData.beerName);
+        console.log("Submitting beer name");
+
+        var url = "/v2/api/pump/" + $scope.nameData.pumpName + "/name/" + $scope.nameData.beerName;
+
+        console.log("url: " + url);
+
+        $http({
+            method: "POST",
+            url: url,
+            data: ""
+        }).then(function successCallback(data) {
+            console.log("Name Beer form submitted, and returned");
+            console.log(data);
+            $scope.showSimpleToast("Beer name registered successfully");
+
+        }, function errorCallback(respone) {
+            console.error("Error registering beer name");
+            console.error(response);
+            $scope.showSimpleToast("Error rgistering beer name");
+        });
+    }
 
     $scope.processRegisterBeerForm = function () {
         console.log("Pump name: " + $scope.registerData.pumpName + " Rfid: " + $scope.registerData.rfid);

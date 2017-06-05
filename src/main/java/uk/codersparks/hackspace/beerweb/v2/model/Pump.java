@@ -28,6 +28,9 @@ public class Pump {
     @Column(unique = true, name="rfid")
     private String assignedRfid = null;
 
+    @Column(name="beername")
+    private String assignedName = null;
+
     public Pump(String pumpName) {
         this.pumpName = pumpName;
     }

@@ -59,9 +59,13 @@
                         <tr>
                             <td>
                                 <md-toolbar class="md-toolbar-tools md-hue-3" layout="row" layout-align="space-around center">
-                                    <div>{{ pump }}</div>
-                                    <div flex hide show-gt-md></div>
-                                    <div hide show-gt-xs>Loaded ID: {{pumpSummary.loadedBeerRfid}}</div>
+
+                                    <div hide show-gt-xs ng-if="pumpSummary.loadedBeerName != null">Name: {{pumpSummary.loadedBeerName}}</div>
+                                    <div ng-if="pumpSummary.loadedBeerName == null">
+                                        <div>{{ pump }}</div>
+                                        <div flex hide show-gt-md></div>
+                                        <div hide show-gt-xs>Loaded ID: {{pumpSummary.loadedBeerRfid}}</div>
+                                    </div>
                                 </md-toolbar>
                             </td>
                         </tr>
@@ -72,10 +76,10 @@
                                 <div layout="row">
                                     <div class="border-left" flex><span class="beerweb-heading">Average Rating</span>
                                     </div>
-                                    <div class="border-inner" flex>{{pumpSummary.average | number : 2 }}</div>
+                                    <div class="border-inner" flex><span class="md-headline">{{pumpSummary.average | number : 2 }}</span></div>
                                     <div class="border-inner" flex><span class="beerweb-heading">Last Rating:</span>
                                     </div>
-                                    <div class="border-right" flex>{{pumpSummary.last10Ratings[0].rating}}</div>
+                                    <div class="border-right" flex><span class="md-headline">{{pumpSummary.last10Ratings[0].rating}}</span></div>
                                 </div>
                             </td>
                         </tr>
