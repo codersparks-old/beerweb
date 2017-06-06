@@ -108,6 +108,7 @@ public class DefaultBeerwebService implements BeerwebService {
 
         logger.info("Assigning beer rfid {} to pump {}", beerRfid, pumpName);
         pump.setAssignedRfid(beerRfid);
+        pump.setAssignedName(null);
 
         logger.debug("Saving updated pump...");
         pump = pumpRepository.save(pump);
